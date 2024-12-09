@@ -13,3 +13,7 @@ config_version=5
 config/name="Godot Examples"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+CodeCoverage="*res://scripts/code_coverage.gd"
