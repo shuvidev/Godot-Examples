@@ -16,4 +16,4 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-CodeCoverage="*res://scripts/code_coverage.gd"
+TestCoverageCriteria="*res://scripts/test_coverage_criteria.gd"
