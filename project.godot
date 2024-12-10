@@ -11,9 +11,22 @@ config_version=5
 [application]
 
 config/name="Godot Examples"
+run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 TestCoverageCriteria="*res://scripts/test_coverage_criteria.gd"
+
+[global_group]
+
+Entity="Any entity of the game"
+Enemy="Any npc harmful to the player"
+Npc="Any non harmful NPC"
+Collectable="Anything the Player can collect"
+Path="Any non harmful path that the player can walk and collide"
+Hazard="Any path that the player collide and takes damage"
+Player="Entity that you control for the game"
+UI="Any part related to user interface"
+Level="The node responsive for gathering all other nodes related to the level"
