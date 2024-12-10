@@ -19,3 +19,6 @@ func _on_child_update(node: Node):
 	print("tree updated on node:")
 	print(node)
 	print("=====================")
+	
+	if node.is_in_group("Enemy"):
+		print("Number of enemies updated")
