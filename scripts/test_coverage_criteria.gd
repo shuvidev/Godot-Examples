@@ -13,21 +13,20 @@ func _ready() -> void:
 	print("Test Coverage Criteria Initialized")
 	var nodes: Node = get_tree().get_root()
 	print(nodes)
-	nodes.child_entered_tree.connect(_on_child_update)
-	nodes.child_exiting_tree.connect(_on_child_update)
+	get_tree().node_added.connect(_on_child_update)
+	get_tree().node_removed.connect(_on_child_update)
+	_on_child_update(nodes)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	print("elements")
-	for element in get_all_children(get_tree().get_root()):
-		print(element)
+	pass
 
 
 # Called whenever a node is updated
 func _on_child_update(node: Node):
+	print("element")
 	for element in get_all_children(get_tree().get_root()):
-		print("element")
 		print(element)
 	
 	print("tree updated on node:")
