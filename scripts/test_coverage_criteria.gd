@@ -1,21 +1,35 @@
 extends Node
 
 
+func get_all_children(in_node: Node, array := []) -> Array:
+	array.push_back(in_node)
+	for child in in_node.get_children():
+		array = get_all_children(child, array)
+	return array
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("Test Coverage Criteria Initialized")
-	var nodes: Node = get_node('/root')
+	var nodes: Node = get_tree().get_root()
+	print(nodes)
 	nodes.child_entered_tree.connect(_on_child_update)
 	nodes.child_exiting_tree.connect(_on_child_update)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	print("elements")
+	for element in get_all_children(get_tree().get_root()):
+		print(element)
 
 
 # Called whenever a node is updated
 func _on_child_update(node: Node):
+	for element in get_all_children(get_tree().get_root()):
+		print("element")
+		print(element)
+	
 	print("tree updated on node:")
 	print(node)
 	print("=====================")
