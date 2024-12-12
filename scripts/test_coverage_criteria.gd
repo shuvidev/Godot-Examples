@@ -35,3 +35,5 @@ func _on_child_update(node: Node):
 	
 	if node.is_in_group("Enemy"):
 		print("Number of enemies updated")
+	elif node.is_in_group("Collectable"):
+		print("Number of collectables updated")
