@@ -10,9 +10,7 @@ func get_all_children(in_node: Node, array := []) -> Array:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("Test Coverage Criteria Initialized")
 	var nodes: Node = get_tree().get_root()
-	print(nodes)
 	get_tree().node_added.connect(_on_child_update)
 	get_tree().node_removed.connect(_on_child_update)
 	_on_child_update(nodes)
@@ -25,15 +23,11 @@ func _process(_delta: float) -> void:
 
 # Called whenever a node is updated
 func _on_child_update(node: Node):
-	print("element")
 	for element in get_all_children(get_tree().get_root()):
-		print(element)
+		pass
 	
-	print("tree updated on node:")
-	print(node)
-	print("=====================")
-	
+	# TODO: Calculate values
 	if node.is_in_group("Enemy"):
-		print("Number of enemies updated")
+		pass
 	elif node.is_in_group("Collectable"):
-		print("Number of collectables updated")
+		pass
