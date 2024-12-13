@@ -19,7 +19,7 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func _on_child_update(node: Node):
+func _on_child_update(node: Node) -> void:
 	for element in get_all_children(get_tree().get_root()):
 		pass
 	
@@ -28,3 +28,18 @@ func _on_child_update(node: Node):
 		pass
 	elif node.is_in_group("Collectable"):
 		pass
+
+
+func find_collisions(node: Node, collision_objects: Array = []) -> Array:
+		if node.has_node("CollisionShape2D") or node.has_node("CollisionShape3D"):
+			collision_objects.append(node)
+		elif node is TileMap:
+			collision_objects.append(node)
+		for child in node.get_children():
+			if child is Node:
+				find_collisions(child, collision_objects)
+		return collision_objects
+
+func get_all_collisions() -> Array:
+	var collision_objects: Array = find_collisions(get_tree().get_root())
+	return collision_objects
