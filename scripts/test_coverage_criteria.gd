@@ -43,3 +43,9 @@ func find_collisions(node: Node, collision_objects: Array = []) -> Array:
 func get_all_collisions() -> Array:
 	var collision_objects: Array = find_collisions(get_tree().get_root())
 	return collision_objects
+
+
+# TODO: Calculate the hazards that the player collided with
+func hazards_collided_with(player: Node) -> Array:
+	var hazards = get_tree().get_nodes_in_group("Hazard")
+	return hazards
