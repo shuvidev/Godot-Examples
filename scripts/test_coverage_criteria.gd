@@ -1,7 +1,7 @@
 extends Node
 
 
-func get_all_children(in_node: Node, array := []) -> Array:
+func get_all_children(in_node: Node, array: Array= []) -> Array:
 	array.push_back(in_node)
 	for child in in_node.get_children():
 		array = get_all_children(child, array)
@@ -9,6 +9,15 @@ func get_all_children(in_node: Node, array := []) -> Array:
 
 
 func _ready() -> void:
+	var enemies_coverage: int = 0
+	var collectable_coverage: int = 0
+	var entity_coverage: int = 0
+	var hazard_coverage: int = 0
+	var level_coverage: int = 0
+	var npc_coverage: int = 0
+	var path_coverage: int = 0
+	var ui_coverage: int = 0
+	
 	var nodes: Node = get_tree().get_root()
 	get_tree().node_added.connect(_on_child_update)
 	get_tree().node_removed.connect(_on_child_update)
@@ -28,7 +37,6 @@ func _on_child_update(node: Node) -> void:
 		pass
 	elif node.is_in_group("Collectable"):
 		pass
-
 
 func find_collisions(node: Node, collision_objects: Array = []) -> Array:
 		if node.has_node("CollisionShape2D") or node.has_node("CollisionShape3D"):
