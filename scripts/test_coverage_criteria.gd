@@ -1,31 +1,20 @@
 extends Node
 
-
-func get_all_children(in_node: Node, array: Array= []) -> Array:
-	array.push_back(in_node)
-	for child in in_node.get_children():
-		array = get_all_children(child, array)
-	return array
+@onready var enemies_coverage: int = 0
+@onready var collectable_coverage: int = 0
+@onready var entity_coverage: int = 0
+@onready var hazard_coverage: int = 0
+@onready var level_coverage: int = 0
+@onready var npc_coverage: int = 0
+@onready var path_coverage: int = 0
+@onready var ui_coverage: int = 0
+@onready var root_node: Node = get_tree().get_root()
 
 
 func _ready() -> void:
-	var enemies_coverage: int = 0
-	var collectable_coverage: int = 0
-	var entity_coverage: int = 0
-	var hazard_coverage: int = 0
-	var level_coverage: int = 0
-	var npc_coverage: int = 0
-	var path_coverage: int = 0
-	var ui_coverage: int = 0
-	
-	var nodes: Node = get_tree().get_root()
 	get_tree().node_added.connect(_on_child_update)
 	get_tree().node_removed.connect(_on_child_update)
-	_on_child_update(nodes)
-
-
-func _process(_delta: float) -> void:
-	pass
+	_on_child_update(root_node)
 
 
 func _on_child_update(node: Node) -> void:
@@ -38,18 +27,28 @@ func _on_child_update(node: Node) -> void:
 	elif node.is_in_group("Collectable"):
 		pass
 
+
+func get_all_children(in_node: Node, array: Array= []) -> Array:
+	array.push_back(in_node)
+	for child in in_node.get_children():
+		array = get_all_children(child, array)
+	return array
+
+
 func find_collisions(node: Node, collision_objects: Array = []) -> Array:
 		if node.has_node("CollisionShape2D") or node.has_node("CollisionShape3D"):
 			collision_objects.append(node)
 		elif node is TileMap:
 			collision_objects.append(node)
+
 		for child in node.get_children():
 			if child is Node:
 				find_collisions(child, collision_objects)
 		return collision_objects
 
+
 func get_all_collisions() -> Array:
-	var collision_objects: Array = find_collisions(get_tree().get_root())
+	var collision_objects: Array = find_collisions(root_node)
 	return collision_objects
 
 
