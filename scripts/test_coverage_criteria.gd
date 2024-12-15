@@ -1,7 +1,7 @@
 extends Node
 
 @onready var initial_enemies: int = 0
-@onready var initial_collectables: inst = 0
+@onready var initial_collectables: int = 0
 
 @onready var enemies_coverage: int = 0
 @onready var collectable_coverage: int = 0
@@ -26,11 +26,21 @@ func _on_child_update(node: Node) -> void:
 	
 	# TODO: Calculate values
 	if node.is_in_group("Enemy"):
+		var enemies_size: int = get_tree().get_nodes_in_group("Enemy").size()
 		if initial_enemies == 0:
-			initial_enemies = get_tree().get_nodes_in_group("Enemy").size()
+			initial_enemies = enemies_size
+		elif enemies_size > initial_enemies:
+			initial_enemies = enemies_size
+		else:
+			enemies_coverage = enemies_size
 	elif node.is_in_group("Collectable"):
+		var collectables_size: int = get_tree().get_nodes_in_group("Collectable").size()
 		if initial_collectables == 0:
-			initial_collectables = get_tree().get_nodes_in_group("Collectable").size()
+			initial_collectables = collectables_size
+		elif collectables_size > initial_collectables:
+			initial_collectables = collectables_size
+		else:
+			collectable_coverage = collectables_size
 
 
 func get_all_children(in_node: Node, array: Array= []) -> Array:
