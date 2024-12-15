@@ -1,5 +1,8 @@
 extends Node
 
+@onready var initial_enemies: int = 0
+@onready var initial_collectables: inst = 0
+
 @onready var enemies_coverage: int = 0
 @onready var collectable_coverage: int = 0
 @onready var entity_coverage: int = 0
@@ -18,14 +21,16 @@ func _ready() -> void:
 
 
 func _on_child_update(node: Node) -> void:
-	for element in get_all_children(get_tree().get_root()):
+	for element in get_all_children(root_node):
 		pass
 	
 	# TODO: Calculate values
 	if node.is_in_group("Enemy"):
-		pass
+		if initial_enemies == 0:
+			initial_enemies = get_tree().get_nodes_in_group("Enemy").size()
 	elif node.is_in_group("Collectable"):
-		pass
+		if initial_collectables == 0:
+			initial_collectables = get_tree().get_nodes_in_group("Collectable").size()
 
 
 func get_all_children(in_node: Node, array: Array= []) -> Array:
@@ -53,6 +58,6 @@ func get_all_collisions() -> Array:
 
 
 # TODO: Calculate the hazards that the player collided with
-func hazards_collided_with(player: Node) -> Array:
+func hazards_collided_with(_player: Node) -> Array:
 	var hazards = get_tree().get_nodes_in_group("Hazard")
 	return hazards
